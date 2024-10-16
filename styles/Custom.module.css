@@ -1,0 +1,41 @@
+.inner {
+  display: none;
+}
+
+.label {
+  margin: 0;
+  padding: 0;
+}
+
+.badgeLabel {
+  color: black;
+}
+
+.btnLabel {
+  color: black;
+}
+
+.root {
+  position: relative;
+  padding: var(--mantine-spacing-md);
+  transition: border-color 150ms ease;
+  border-color: black;
+
+  &[data-checked] {
+    background-color: #b3c8ef;
+  }
+
+  &[data-disabled] {
+    border-color: gray;
+  }
+
+  @mixin hover {
+    @mixin light {
+      background-color: var(--mantine-color-gray-0);
+    }
+
+    @mixin dark {
+      background-color: var(--mantine-color-dark-6);
+    }
+  }
+}
