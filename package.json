@@ -10,6 +10,7 @@
     "server": "node server"
   },
   "dependencies": {
+    "@ducanh2912/next-pwa": "^10.2.8",
     "@auth/mongodb-adapter": "^3.5.3",
     "@cloudinary/react": "^1.13.0",
     "@cloudinary/url-gen": "^1.21.0",
