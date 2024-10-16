@@ -21,8 +21,8 @@ export default function Home() {
             "I noticed a strange rash on my arm that hasn't gone away",
             "My stomach has been upset after meals, and I feel bloated all the time.",
             "I've noticed my joints are stiff and painful, especially in the morning.",
-          ].map((example) => (
-            <div className="bg-slate-100 p-4 rounded-md min-w-[200px] ">
+          ].map((example, i) => (
+            <div key={i} className="bg-slate-100 p-4 rounded-md min-w-[200px] ">
               <p className="text-slate-600">{example}</p>
             </div>
           ))}
