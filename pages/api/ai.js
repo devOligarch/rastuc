@@ -5,7 +5,7 @@ const openai = new OpenAI({
 });
 
 export default async function handler(req, res) {
-  if (req.method === "POST") {
+  if (req.method == "POST") {
     const { issue } = req.body;
 
     // const completion = await openai.chat.completions.create({
