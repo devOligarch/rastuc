@@ -9,6 +9,11 @@ const nextConfig = {
       {
         source: "/(.*)",
         headers: [
+          {
+            key: "viewport",
+            value:
+              "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
+          },
           { key: "Access-Control-Allow-Credentials", value: "true" },
           { key: "Access-Control-Allow-Origin", value: "*" },
           {
