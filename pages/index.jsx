@@ -1,9 +1,11 @@
 import DoctorCard from "@/components/DoctorCard";
-import { Button, Card, ColorInput, Divider, Input } from "@mantine/core";
+import { GET_DOCTORS } from "@/lib/request";
+import { Button, Input, Textarea } from "@mantine/core";
 import { IconArrowUp, IconChevronRight } from "@tabler/icons-react";
 import { Cross as Hamburger } from "hamburger-react";
 import { useState } from "react";
 import { Bars } from "react-loader-spinner";
+import { useClient } from "urql";
 
 export default function Home() {
   // States
@@ -12,16 +14,47 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [issue, setIssue] = useState(null);
   const [_prompt, setPrompt] = useState(null);
+  const [specialist, setSpecialist] = useState(null);
+  const [doctors, setDoctors] = useState([]);
 
-  let specialist = "Neurologist";
-
-  // Helper components
+  // Other hooks
+  const graphqlClient = useClient();
 
   // Functions
-  const handleSendPrompt = () => {
+  const handleSendPrompt = async () => {
     setShowRecommendations(false);
     setPrompt(issue);
     setLoading(true);
+
+    const res = await fetch("/api/ai", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ issue }),
+    });
+
+    if (!res.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const { specialist } = await res.json();
+    setSpecialist(specialist);
+
+    // Filter doctors based on specialization
+    graphqlClient
+      .query(GET_DOCTORS, {
+        speciality: specialist,
+      })
+      .toPromise()
+      .then(({ data, error }) => {
+        if (data && !error) {
+          setDoctors(data?.retrieveHealthWorkers?.items);
+          console.log(data?.retrieveHealthWorkers?.items);
+          return;
+        }
+        return;
+      })
+      .catch((err) => console.error(err));
 
     setTimeout(() => {
       setIssue(null);
@@ -71,8 +104,8 @@ export default function Home() {
           </div>
           <br />
           <div className="space-y-4 mt-2">
-            {[1, 2, 3, 4, 5].map((el) => (
-              <DoctorCard key={el} />
+            {doctors?.map((doctor, i) => (
+              <DoctorCard key={i} doctor={doctor} />
             ))}
           </div>
         </div>
@@ -100,10 +133,11 @@ export default function Home() {
         <br />
 
         <div className="flex justify-between">
-          <Input
+          <Textarea
             value={issue}
+            w={"85%"}
             onChange={(e) => setIssue(e.target.value)}
-            className="w-[calc(100%-60px)]"
+            // className="max-w-[calc(100%-60px)]"
             size="lg"
             radius={"lg"}
             variant="filled"
