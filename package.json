@@ -10,10 +10,10 @@
     "server": "node server"
   },
   "dependencies": {
-    "@ducanh2912/next-pwa": "^10.2.8",
     "@auth/mongodb-adapter": "^3.5.3",
     "@cloudinary/react": "^1.13.0",
     "@cloudinary/url-gen": "^1.21.0",
+    "@ducanh2912/next-pwa": "^10.2.8",
     "@mantine/carousel": "^7.12.1",
     "@mantine/charts": "^7.12.1",
     "@mantine/core": "^7.12.1",
@@ -42,6 +42,7 @@
     "react-images-uploading": "^3.1.7",
     "react-instantsearch": "^7.13.2",
     "react-instantsearch-dom": "^6.40.4",
+    "react-loader-spinner": "^6.1.6",
     "react-responsive-carousel": "^3.2.23",
     "recharts": "^2.12.7",
     "socket.io": "^4.8.0",
