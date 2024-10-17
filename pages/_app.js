@@ -124,5 +124,6 @@ function App({ Component, pageProps: { session, ...pageProps } }) {
 
 export default withUrqlClient((_ssrExchange, ctx) => ({
   // ...add your Client options here
-  url: process.env.NEXT_PUBLIC_BACKEND_URL,
+  // url: process.env.NEXT_PUBLIC_BACKEND_URL,
+  url: "https://api.rastuc.com/graphql",
 }))(App);
